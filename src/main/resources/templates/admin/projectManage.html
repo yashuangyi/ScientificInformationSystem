@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>科研管理</title>
+    <script th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/js/admin/projectManage.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md16">
+            <div class="layui-card">
+                <div class="layui-card-header">科研管理</div>
+                <div class="layui-card-body">
+
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">项目查询</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="input" id="input" lay-verify="required" style="width:400px;" placeholder="请输入申报项目名，支持模糊查询" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <button type="button" class="layui-btn layui-btn-normal" id="search">
+                                    <i class="layui-icon">&#xe615;</i>
+                                </button>
+                            </div>
+                        </form>
+                    </blockquote>
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        <!--申报信息的表格-->
+                        <table id="table_project" lay-filter="table_project"></table>
+                    </blockquote>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改表格的工具列-->
+<script type="text/html" id="toolbar">
+    {{# if(d.status === "待授权"){ }}
+    <a class="operation" lay-event="license" title="授权开发">
+        <i class="layui-icon layui-icon-praise"></i>授权
+    </a>
+    <a class="operation" style="margin-left:10px;" lay-event="no-license" title="不给予授权">
+        <i class="layui-icon layui-icon-tread"></i>不通过
+    </a>
+    <a class="operation" style="margin-left:10px;" lay-event="del" title="删除该项目">
+        <i class="layui-icon layui-icon-close"></i>删除
+    </a>
+    {{#  } }}
+    {{# if(d.status === "待审批"){ }}
+    <a class="operation" lay-event="result" title="查看提交的成果">
+        <i class="layui-icon layui-icon-release"></i>查看成果
+    </a>
+    <a class="operation" style="margin-left:10px;" lay-event="pass" title="给予合格评价">
+        <i class="layui-icon layui-icon-praise"></i>合格
+    </a>
+    <a class="operation" style="margin-left:10px;" lay-event="no-pass" title="给予不合格评价">
+        <i class="layui-icon layui-icon-tread"></i>不合格
+    </a>
+    <a class="operation" style="margin-left:10px;" lay-event="del" title="删除该项目">
+        <i class="layui-icon layui-icon-close"></i>删除
+    </a>
+    {{#  } }}
+    {{# if(d.status === "审批通过"){ }}
+    <a class="operation" lay-event="prize" title="颁奖">
+        <i class="layui-icon layui-icon-release"></i>颁奖
+    </a>
+    <a class="operation" style="margin-left:10px;" lay-event="patent" title="专利授权">
+        <i class="layui-icon layui-icon-note"></i>专利授权
+    </a>
+    <a class="operation" style="margin-left:10px;" lay-event="del" title="删除该项目">
+        <i class="layui-icon layui-icon-close"></i>删除
+    </a>
+    {{#  } }}
+    {{# if(d.status === "已授权-开发中"){ }}
+    <a class="operation" lay-event="del" title="删除该项目">
+        <i class="layui-icon layui-icon-close"></i>删除
+    </a>
+    {{#  } }}
+    {{# if(d.status === "授权不通过"){ }}
+    <a class="operation" lay-event="del" title="删除该项目">
+        <i class="layui-icon layui-icon-close"></i>删除
+    </a>
+    {{#  } }}
+    {{# if(d.status === "审批不通过"){ }}
+    <a class="operation" lay-event="del" title="删除该项目">
+        <i class="layui-icon layui-icon-close"></i>删除
+    </a>
+    {{#  } }}
+</script>
+<!--修改表格的状态列-->
+<script type="text/html" id="statusbar">
+    {{# if(d.status === "待授权"){ }}
+    <span style="color:#ffd800;">待授权</span>
+    {{#  } }}
+    {{# if(d.status === "已授权-开发中"){ }}
+    <span style="color:#00FF00;">已授权-开发中</span>
+    {{#  } }}
+    {{# if(d.status === "授权不通过"){ }}
+    <span style="color:#CF1900;">授权不通过</span>
+    {{#  } }}
+    {{# if(d.status === "待审批"){ }}
+    <span style="color:#ffd800;">待审批</span>
+    {{#  } }}
+    {{# if(d.status === "审批通过"){ }}
+    <span style="color:#00FF00;">审批通过</span>
+    {{#  } }}
+    {{# if(d.status === "审批不通过"){ }}
+    <span style="color:#CF1900;">审批不通过</span>
+    {{#  } }}
+</script>
+</body>
+</html>

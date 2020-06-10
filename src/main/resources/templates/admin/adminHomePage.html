@@ -1,0 +1,155 @@
+<!DOCTYPE html >
+<html>
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="utf-8" >
+    <title>主页</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script th:src="@{/layuiadmin/layui/layui.js}"></script>
+    <script th:src="@{/js/admin/adminHomePage.js}"></script>
+    <link rel="stylesheet" th:href="@{/layuiadmin/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">快速导航</div>
+                        <div class="layui-card-body">
+
+                            <div class="layui-carousel layadmin-carousel layadmin-shortcut">
+                                <div carousel-item>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="/paperManage">
+                                                <i class="layui-icon layui-icon-read"></i>
+                                                <cite>论文管理</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="/prizeManage">
+                                                <i class="layui-icon layui-icon-praise"></i>
+                                                <cite>奖项管理</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="/patentManage">
+                                                <i class="layui-icon layui-icon-note"></i>
+                                                <cite>专利管理</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="/statisty">
+                                                <i class="layui-icon layui-icon-chart-screen"></i>
+                                                <cite>统计中心</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="/message">
+                                                <i class="layui-icon layui-icon-email"></i>
+                                                <cite>消息中心</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="/userManage">
+                                                <i class="layui-icon layui-icon-user"></i>
+                                                <cite>用户管理</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="/projectManage">
+                                                <i class="layui-icon layui-icon-list"></i>
+                                                <cite>科研管理</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="/info">
+                                                <i class="layui-icon layui-icon-username"></i>
+                                                <cite>基本资料</cite>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="/editPW">
+                                                <i class="layui-icon layui-icon-password"></i>
+                                                <cite>修改密码</cite>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">数据统计</div>
+                        <div class="layui-card-body">
+
+                            <div class="layui-carousel layadmin-carousel layadmin-backlog">
+                                <div carousel-item>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs6">
+                                            <a class="layadmin-backlog-body">
+                                                <h3>待授权项目数</h3>
+                                                <p><cite id="num_shouldGrant"></cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs6">
+                                            <a class="layadmin-backlog-body">
+                                                <h3>待审批项目数</h3>
+                                                <p><cite id="num_shouldPass"></cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs6">
+                                            <a class="layadmin-backlog-body">
+                                                <h3>已申报项目数</h3>
+                                                <p><cite id="num_hasDeclare"></cite></p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    使用说明
+                    <i class="layui-icon layui-icon-tips" lay-tips="使用过程中如有疑问请联系我们" lay-offset="5"></i>
+                </div>
+                <div class="layui-card-body layui-text layadmin-text">
+                    <p>1、本系统为科研处人员提供科研项目的授权、审批等服务</p>
+                    <p>2、管理员可在“科研管理”处进行科研项目的授权、审批等操作</p>
+                    <p>3、也可在“信息管理”处分别对论文、奖项和发明专利信息进行管理</p>
+                    <p>4、“统计中心”可直观反应当前科研信息情况</p>
+                    <p>5、请留意“消息中心”的消息</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.config({
+        base: '/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'console']);
+</script>
+</body>
+</html>
+

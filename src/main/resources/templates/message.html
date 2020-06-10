@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>消息中心</title>
+    <script th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/js/message.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md16">
+            <div class="layui-card">
+                <div class="layui-card-header">消息中心</div>
+                <div class="layui-card-body">
+
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">消息查询</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="input" id="input" lay-verify="required" style="width:400px;" placeholder="请输入消息内容，支持模糊查询" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <button type="button" class="layui-btn layui-btn-normal" id="search">
+                                    <i class="layui-icon">&#xe615;</i>
+                                </button>
+                            </div>
+                        </form>
+                    </blockquote>
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        <!--消息信息的表格-->
+                        <table id="table_message" lay-filter="table_message"></table>
+                    </blockquote>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

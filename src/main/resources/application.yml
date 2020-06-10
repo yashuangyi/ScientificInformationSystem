@@ -1,0 +1,63 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: scientificinformationsystem
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/scientificinformationsystem?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&&useSSL=false
+      username: root
+      password: 123456
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 2000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+
+  thymeleaf:
+      cache: false
+      mode: HTML5
+      encoding: UTF-8
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: true
+
+  redis:
+    host: 47.106.248.255
+    port: 6379
+
+  cache:
+    redis:
+      use-key-prefix: true
+
+swagger:
+  enabled: true

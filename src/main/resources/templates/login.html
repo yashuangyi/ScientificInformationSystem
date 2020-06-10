@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>科研信息管理系统</title>
+    <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script th:src="@{/js/login.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+<body>
+<div class="layui-bg-gray" style="width:800px;height:450px;border:1px solid black;position:absolute;top:50%;left:50%;margin:-225px 0 0 -400px;text-align:center;">
+    <div>
+        <br /><br /><br /><br />
+        <img th:src="@{/images/login.jpg}" style="width: 100px;height: 100px;" alt="图片加载失败啦..." title="Welcome~" />
+        <h3>
+            <i class="layui-icon layui-icon-rate-solid" style="font-size:30px;color:#ffd800;"></i>
+            <strong>科研信息管理系统</strong>
+            <i class="layui-icon layui-icon-rate-solid" style="font-size:30px;color:#ffd800;"></i>
+        </h3>
+        <br /><br />
+        <i class="layui-icon layui-icon-user" style="font-size:20px;color:black;"></i>
+        <big>账号：</big>
+        <div class="layui-input-inline">
+            <input type="text" id="account" placeholder="请输入账号" class="layui-input" autocomplete="off" />
+        </div>
+        <br /><br />
+        <i class="layui-icon layui-icon-password" style="font-size:20px;color:black;"></i>
+        <big>密码：</big>
+        <div class="layui-input-inline">
+            <input type="password" id="password" placeholder="请输入密码" class="layui-input" autocomplete="off" />
+        </div>
+        <br /><br />
+        <button class="layui-btn" id="login">登录</button>
+        &nbsp;&nbsp;&nbsp;
+        <button class="layui-btn layui-btn-normal" onclick="btn_addUser()">注册</button>
+        <hr />
+        <footer>
+            <p>&copy; 科研中心</p>
+        </footer>
+    </div>
+</div>
+
+<!--注册的弹窗-->
+<div style="padding-left:20px;padding-right:20px;padding-top:20px" id="div_addUser" hidden>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color:red">*</span>账号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="account" id="userAccount" lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color:red">*</span>密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" id="userPw" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color:red">*</span>确认密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="pwAgain" id="userPwAgain" lay-verify="required" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color:red">*</span>名字</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" id="userName" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

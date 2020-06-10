@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>申报平台</title>
+    <script th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/js/user/project.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuiadmin/style/admin.css}" media="all">
+
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md16">
+            <div class="layui-card">
+                <div class="layui-card-header">申报平台</div>
+                <div class="layui-card-body">
+
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        <button class="layui-btn" onclick="btn_addDeclare()">申报登记</button>
+                    </blockquote>
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">申报查询</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="input" id="input" lay-verify="required" style="width:400px;" placeholder="请输入申报项目名，支持模糊查询" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <button type="button" class="layui-btn layui-btn-normal" id="search">
+                                    <i class="layui-icon">&#xe615;</i>
+                                </button>
+                            </div>
+                        </form>
+                    </blockquote>
+                    <blockquote class="layui-elem-quote layui-quote-nm">
+                        <!--我的申报信息的表格-->
+                        <table id="table_declare" lay-filter="table_declare"></table>
+                    </blockquote>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--申报信息的弹窗-->
+<div style="padding-left:20px;padding-right:20px;padding-top:20px" id="div_addDeclare" hidden>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color:red">*</span>项目名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" id="name" lay-verify="required" placeholder="请输入项目名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color:red">*</span>简述</label>
+            <div class="layui-input-inline">
+                <input type="text" name="description" id="description" lay-verify="required" style="width:400px;" placeholder="请概括项目内容" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <input id="userId" name="userId" hidden>
+    </form>
+</div>
+
+<!--提交成果的弹窗-->
+<div style="padding-left:20px;padding-right:20px;padding-top:20px" id="div_submitResult" hidden>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color:red">*</span>成果上传</label>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn layui-btn-sm" id="btn_selectResult"><i class="layui-icon layui-icon-upload-drag"></i>选择压缩包</button>
+                <button type="button" class="layui-btn layui-btn-sm" id="btn_uploadResult"><i class="layui-icon layui-icon-upload"></i>开始上传</button>
+            </div>
+            <div id="result"></div>
+        </div>
+        <div class="layui-form-mid layui-word-aux">请上传压缩包格式</div>
+        <input id="projectId" name="id" hidden>
+        <input id="resultPath" name="resultPath" hidden>
+    </form>
+</div>
+
+<!--提交论文的弹窗-->
+<div style="padding-left:20px;padding-right:20px;padding-top:20px" id="div_submitPaper" hidden>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color:red">*</span>论文上传</label>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn layui-btn-sm" id="btn_selectPaper"><i class="layui-icon layui-icon-upload-drag"></i>选择论文</button>
+                <button type="button" class="layui-btn layui-btn-sm" id="btn_uploadPaper"><i class="layui-icon layui-icon-upload"></i>开始上传</button>
+            </div>
+            <div id="paper"></div>
+        </div>
+        <div class="layui-form-mid layui-word-aux">请上传文档格式</div>
+        <input id="projectId2" name="id" hidden>
+        <input id="paperPath" name="paperPath" hidden>
+    </form>
+</div>
+
+<!--修改表格的工具列-->
+<script type="text/html" id="toolbar">
+    {{# if(d.status === "已授权-开发中"){ }}
+    <a class="operation" lay-event="submit" title="提交成果">
+        <i class="layui-icon layui-icon-upload"></i>提交成果
+    </a>
+    {{#  } }}
+    {{# if(d.status === "审批通过"){ }}
+    <a class="operation" lay-event="paper" title="提交论文">
+        <i class="layui-icon layui-icon-upload-drag"></i>提交论文
+    </a>
+    {{#  } }}
+</script>
+<!--修改表格的状态列-->
+<script type="text/html" id="statusbar">
+    {{# if(d.status === "待授权"){ }}
+    <span style="color:#ffd800;">待授权</span>
+    {{#  } }}
+    {{# if(d.status === "已授权-开发中"){ }}
+    <span style="color:#00FF00;">已授权-开发中</span>
+    {{#  } }}
+    {{# if(d.status === "授权不通过"){ }}
+    <span style="color:#CF1900;">授权不通过</span>
+    {{#  } }}
+    {{# if(d.status === "待审批"){ }}
+    <span style="color:#ffd800;">待审批</span>
+    {{#  } }}
+    {{# if(d.status === "审批通过"){ }}
+    <span style="color:#00FF00;">审批通过</span>
+    {{#  } }}
+    {{# if(d.status === "审批不通过"){ }}
+    <span style="color:#CF1900;">审批不通过</span>
+    {{#  } }}
+</script>
+</body>
+</html>
